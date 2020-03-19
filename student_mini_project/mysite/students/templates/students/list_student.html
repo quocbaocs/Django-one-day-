@@ -1,0 +1,32 @@
+{% if student_list%}
+    <table border="1">
+        <tr>
+            <th>Student Number</th>
+            <th>Student Name</th>
+            <th>Address</th>
+        </tr>
+        {% for student in student_list %}
+            <tr>
+                <td>{{ student.studentNo }}</td>
+                <td>{{ student.studentName}}</td>
+                <td>{{ student.address }}</td>
+            </tr>
+            <td>
+                <a href='{% url "add_edit_student" student.id %}'>Edit</a>
+                <a href='javascript:confirmDelete("{% url "delete_student" student.id
+                %}")'>Delete</a>
+            </td>
+        {% endfor %}
+    </table>
+    <script>
+        function confirmDelete(url){
+            if(confirm('Do you want to delete?')){
+                location.href = url;
+            }
+        }
+    </script>
+{% else %}
+    <p> No student available </p>
+{% endif %}
+<br>
+<input type="button" value="Add Student" onclick="location.href="{% url 'add_edit_student' 0 %}"">
